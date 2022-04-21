@@ -22,17 +22,17 @@ namespace BookTrackApp.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    NameToken = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryTypeType = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    table.PrimaryKey("PK_Categories", x => x.NameToken);
                     table.ForeignKey(
-                        name: "FK_Categories_CategoriesType_Type1",
-                        column: x => x.Type1,
+                        name: "FK_Categories_CategoriesType_CategoryTypeType",
+                        column: x => x.CategoryTypeType,
                         principalTable: "CategoriesType",
                         principalColumn: "Type",
                         onDelete: ReferentialAction.Restrict);
@@ -45,28 +45,28 @@ namespace BookTrackApp.Migrations
                     ISBN = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId1 = table.Column<int>(type: "int", nullable: true)
+                    TypeNameToken = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Books", x => x.ISBN);
                     table.ForeignKey(
-                        name: "FK_Books_Categories_CategoryId1",
-                        column: x => x.CategoryId1,
+                        name: "FK_Books_Categories_TypeNameToken",
+                        column: x => x.TypeNameToken,
                         principalTable: "Categories",
-                        principalColumn: "CategoryId",
+                        principalColumn: "NameToken",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_CategoryId1",
+                name: "IX_Books_TypeNameToken",
                 table: "Books",
-                column: "CategoryId1");
+                column: "TypeNameToken");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_Type1",
+                name: "IX_Categories_CategoryTypeType",
                 table: "Categories",
-                column: "Type1");
+                column: "CategoryTypeType");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
